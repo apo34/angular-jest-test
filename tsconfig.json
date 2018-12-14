@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "importHelpers": true,
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
+    "paths": {
+      "@app/core": [ "app/" ],
+      "@environment": [ "environments/environment.ts" ],
+      "@testing": [ "../testing" ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [ "node", "googlemaps", "jest" ],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  }
+}

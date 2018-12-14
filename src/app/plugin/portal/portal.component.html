@@ -1,0 +1,5 @@
+<div class="modules-container">
+  <div *ngFor="let module of availableModules$ | async" class="module">
+    <pre>{{ module | json }}</pre>
+  </div>
+</div>

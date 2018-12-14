@@ -1,0 +1,222 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "adar-cms": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/css"
+              ]
+            },
+            "assets": [
+              "src/assets/custom",
+              "src/assets/img",
+              "src/assets/plugins",
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "src/theme.scss",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+              "node_modules/animate.css/animate.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/systemjs/dist/system.src.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+              "node_modules/froala-editor/js/languages/pl.js",
+              "node_modules/froala-editor/js/languages/en_gb.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "user": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.user.ts"
+                }
+              ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "adar-cms:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "adar-cms:build:production"
+            },
+            "user": {
+              "browserTarget": "adar-cms:build:user"
+            },
+            "test": {
+              "browserTarget": "adar-cms:build:test"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "adar-cms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+              "node_modules/froala-editor/js/languages/pl.js",
+              "node_modules/froala-editor/js/languages/en_gb.js"
+            ],
+            "styles": [
+              "src/theme.scss",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+              "node_modules/animate.css/animate.min.css",
+              "src/styles.scss"
+            ],
+            "assets": [
+              "src/assets/custom",
+              "src/assets/plugins",
+              "src/assets/img",
+              "src/favicon.ico"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "adar-cms-e2e": {
+      "root": "",
+      "sourceRoot": "e2e",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "adar-cms:serve"
+          },
+          "configurations": {
+            "test": {
+              "devServerTarget": "adar-cms:serve:test"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "store": {
+      "root": "projects/store",
+      "sourceRoot": "projects/store/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/store/tsconfig.lib.json",
+            "project": "projects/store/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/store/src/test.ts",
+            "tsConfig": "projects/store/tsconfig.spec.json",
+            "karmaConfig": "projects/store/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/store/tsconfig.lib.json",
+              "projects/store/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "adar-cms",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "styleext": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
+}
